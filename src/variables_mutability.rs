@@ -47,6 +47,19 @@ fn change (some_string: &mut String){
     some_string.push_str(", world!");
 }
 
+// The slice type
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[..i];
+        }
+    }
+
+    &s[..]
+}
+
 fn main() {
     constants();
 
@@ -70,4 +83,10 @@ fn main() {
     change(&mut s1);
 
     println!("string 1 => {s1}"); 
+
+    let  s = String::from("Hello World");
+    let word = first_word(&s);
+
+
+    println!("{word}")
 }
