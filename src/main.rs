@@ -1,52 +1,54 @@
-// Defining a struct
-struct User {
-    active: bool,
-    username: String,
-    email: String,
-    sign_in_count: u64,
+use std::{collections::HashMap, fmt::Debug};
 
-}
+fn vectors() {
+    let mut v: Vec<i32> = Vec::new();
+    let v1: Vec<i32> = vec![1, 3, 4];
 
-fn build_user(email: String, username: String) -> User {
-    User {
-        active: true,
-        username,
-        email,
-        sign_in_count: 1,
+    for i in 5..=8 {
+        v.push(i);
+    }
+    for i in v1 {
+        println!("{i}");
+    }
+
+    #[derive(Debug)]
+    enum SpreadSheetCell {
+        Int(i32),
+        Float(f64),
+        Text(String),
+    }
+
+    let row = vec![
+        SpreadSheetCell::Int(3),
+        SpreadSheetCell::Text(String::from("blue")),
+        SpreadSheetCell::Float(10.12),
+    ];
+
+    for i in row {
+        println!("{:#?}", i);
     }
 }
 
-fn print_user(user: User){
-    println!(
-        "Username: {} \nEmail {} \nActive {} \nSign_in_count {}",
-        user.username, user.email, user.active, user.sign_in_count
-    );
+
+fn hash_map() {
+    let text = "hello world wonderful world";
+
+    let mut map = HashMap::new();
+
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+
+    println!("{:?}", map);
 }
+
+
 fn main() {
-    // creating an instance
-    let mut user1 = User {
-        active: true,
-        username: String::from("someoneuser"),
-        email: String::from("someone@example.com"),
-        sign_in_count: 1,
+    vectors();
+    hash_map();
 
+    let v: Vec<i32> = vec![1, 2, 3];
 
-    };
-
-    let user2 = build_user(
-        String::from("someoneuser"),
-        String::from("someone@example.com"),
-    );
-
-    user1.email = String::from("anotheremil@example.com");
-
-    println!("{}", user2.sign_in_count);
-
-    let user3 = User {
-        email: String::from("user3@example.com"),
-        ..user1
-    };
-
-    print_user(user3);
-    
+    v[99];
 }
